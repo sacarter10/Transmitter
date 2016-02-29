@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="/javascripts/chat.js"></script>
+    <script src="/javascripts/chat_ui.js"></script>
+    <script src="/javascripts/notifications.js"></script>
+    <link rel='shortcut icon' href='favicon.png' type='image/x-icon' />
+    <title>
+      Transmitter
+    </title>
+
+    {{#if showTests}}
+      <link rel="stylesheet" href="/vendor/mocha.css"> 
+    {{/if}}
+  </head>
+  <body>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      height: 100%;
+      max-width: 100%;
+      font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+      position: relative;
+    }
+    
+    form {
+      margin: 0;
+    }
+    
+    textarea {
+      resize: none;
+    }
+    
+    #chat-history-parent {
+      height: 72%;
+      background-color: grey;
+      position: relative;
+      padding: 3px;
+      overflow: hidden;
+    }
+    
+    #chat-history {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+    
+    #chat-input {
+      border: none;
+      background-color: #333;
+      width: 100%;
+      height: 25%;
+      padding: 10px;
+      color: lightgreen;
+      font-size: 18px;
+      margin: 0;
+    }
+    
+    #red-stripe {
+      height: 1%;
+      background-color: #750020;
+      width: 100%;
+    }
+    
+    #yellow-stripe {
+      height: 1%;
+      background-color: #7d5f22;
+      width: 100%;
+    }
+    
+    #blue-stripe {
+      height: 1%;
+      background-color: #09233B;
+      width: 100%;
+    }
+    
+    input:focus {
+      outline: none;
+    }
+    
+    p {
+      margin: 3px 0;
+      word-wrap: break-word;
+    }
+    
+    #number-of-users-present {
+      color: #fff;
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+    }
+
+    a {
+      color: inherit;
+    }
+    </style>
+
+    <div id="chat-history-parent">
+      <div id="chat-history">
+      {{#each messages}}
+       <div style="color:{{ this.color }}" title="{{ this.createdAt }}">{{{ this.text }}}</div>
+      {{/each}}
+      </div>
+    </div>
+    <div id="red-stripe">
+    </div>
+    <div id="yellow-stripe">
+    </div>
+    <div id="blue-stripe">
+    </div>
+    <form>
+      <input autofocus autocomplete="off" id="chat-input"></input>
+    </form>
+    <span id="number-of-users-present"></span>
+
+    {{#if showTests}}
+      <div id="mocha"></div>
+      <script src="/vendor/mocha.js"></script> <script src="/vendor/chai.js"></script> 
+      <script>
+        mocha.ui('tdd');
+        var assert = chai.assert; 
+      </script>
+      <script src="/qa/tests-global.js"></script> 
+
+        {{#if pageTestScript}}
+          <script src="{{ pageTestScript }}"></script> 
+        {{/if}}
+      <script>mocha.run();</script> 
+    {{/if}}
+  </body>
+</html>
