@@ -1,3 +1,3 @@
-# chat_app
+# A chat application
 
-Live demo: http://transmitter.lustforlassitude.com/
+Live here: http://transmitter.sallyanncarter.com/
